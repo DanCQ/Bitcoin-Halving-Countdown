@@ -1,3 +1,7 @@
+let now = document.getElementById("current-block-height");
+let toGo = document.getElementById("remaining-blocks");
+let time = document.getElementById("remaining-time");
+
 async function getCurrentBlockHeight() {
     try {
         const response = await fetch('https://api.blockchair.com/bitcoin/stats');
@@ -25,9 +29,10 @@ async function main() {
         const remainingBlocks = calculateRemainingBlocks(currentBlockHeight);
         const remainingTime = estimateTimeRemaining(remainingBlocks);
 
-        console.log(`Current Block Height: ${currentBlockHeight}`);
-        console.log(`Remaining Blocks until Halving: ${remainingBlocks}`);
-        console.log(`Estimated Time Remaining until Halving: ${remainingTime} minutes`);
+        now.textContent = currentBlockHeight;
+        toGo.textContent = remainingBlocks;
+        time.textContent = remainingTime;
+        
     } catch (error) {
         console.error('An error occurred:', error.message);
     }

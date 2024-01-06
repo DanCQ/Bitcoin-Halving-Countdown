@@ -32,12 +32,17 @@ async function main() {
         now.textContent = currentBlockHeight;
         toGo.textContent = remainingBlocks;
         time.textContent = remainingTime;
-        
+
     } catch (error) {
         console.error('An error occurred:', error.message);
     }
 }
 
+window.onload= function() {
+    
+    main(); //runs once without delay
 
-// Run the main function
-main();
+    setInterval(function() { main() }, 1000 * 60); //refresh info every minute
+
+};
+

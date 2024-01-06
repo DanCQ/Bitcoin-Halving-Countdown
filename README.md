@@ -1,3 +1,4 @@
-Under CONStrucTion!!! ;P
+UnDer CONStrucTion!!!
 
-My own countdown of The Bitcoin Halving event and related information.
+My own personal countdown of The Bitcoin Halving event and other relevant information.
+Using the Bitcoin Blockchair API. 

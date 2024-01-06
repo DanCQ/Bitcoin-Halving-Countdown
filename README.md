@@ -2,5 +2,7 @@
 
 UnDer CONStrucTion!!!
 
-My own personal countdown of The Bitcoin Halving event and other relevant information.
-Using the Bitcoin Blockchair API. 
+My own personal tracking of The Bitcoin Halving event, and other related information. 
+Just in case other sites dissapear.
+
+Using the Bitcoin Blockchair API.

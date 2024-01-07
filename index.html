@@ -19,18 +19,50 @@
         <title>Bitcoin Halving Countdown</title>    
     </head>
 
-    <body> 
-        <p>
-            Current Block Height: <span id="current-block-height"></span>.
-        </p>
+    <body>     
 
-        <p>
-            Remaining Blocks until Halving: <span id="remaining-blocks"></span>. 
-        </p>
-        
-        <p>
-            Estimated Time Remaining until Halving: <span id="remaining-time"></span> minutes.
-        </p>
+        <div class="frame">
+
+            <header>
+                <h1><span class="banner">The</span> <br> <span id="bitcoin">Bitcoin</span> <br> <span class="banner">Halving Countdown</span></h1>
+                <hr>
+
+                <h2>Tracking the Bitcoin Halving event and other related information</h2>
+                <hr>
+            </header>
+
+            <main>
+
+                <ul>
+                    <span class="label">
+                        Current Block Height
+                    </span>
+                    <li>
+                        <span id="current-block-height"></span>
+                    </li>
+                </ul>
+
+                <ul>
+                    <span class="label">
+                        Remaining Blocks
+                    </span>
+                    <li>
+                        <span id="remaining-blocks"></span>
+                    </li>
+                </ul>
+
+                <ul>
+                    <span class="label">
+                        Remaining Time
+                    </span>
+                    <li>
+                        <span id="remaining-time"></span>
+                    </li>
+                </ul>
+    
+            </main>
+
+        </div>
 
     </body>
 

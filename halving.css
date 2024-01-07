@@ -1,0 +1,106 @@
+/* CSS comment */
+
+* {
+    /* border-style: dashed; */
+    box-sizing: border-box;
+}
+
+a:active {
+    color: white;
+}
+
+a:hover {
+    color: aquamarine;
+}
+
+a:visited {
+    color: orange;
+}
+
+body {
+    background-color: #2a2d30;
+    margin:0;
+    padding: 8px;
+}
+
+h1 {
+    background: linear-gradient(160deg,#ff4C1D,#9b0063);
+    border-radius: 5px;
+    color: white;
+    font-family: arial rounded mt bold, sans-serif;
+    font-weight: 600;
+    margin-left: -25px;
+    margin-right: -25px;
+    padding: 6px 10px;
+    text-align: center;
+    opacity: 99%;
+}
+
+h2 {
+    color: #3C4043;
+    font-family: chalkduster, monospace;
+    font-size: 19px;
+    margin: auto;
+    text-align: center;
+}
+
+header {
+    min-width: 100%;
+}
+
+hr {
+    height: 2px;
+    background: linear-gradient(120deg,#ff4C1D,#9b0063, #ff4C1D);
+    border: 0px;
+    margin-left: 70px;
+    margin-right: 70px;
+    min-width: 140px;
+}
+
+li {
+    margin: 3px 0px 3px -8px;
+    list-style-type: none;
+}
+/* solves list alignment */
+main {
+    color: #3C4043;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-family: chalkboard, monospace;
+    font-size: 16px;
+    justify-content: space-evenly;
+    min-height:60vh;
+    padding:5px;
+}
+
+ul {
+    display: inline-block;
+    margin: 30px 10px 0px 10px;
+    max-width: 280px;
+    min-width: 250px;
+    padding-bottom: 10px;
+    padding-left:8px;
+    padding-top: 15px;
+    text-align:center;
+}
+
+.banner {
+    font-size: 28px;
+    line-height: 40px;
+}
+
+.frame {
+    border-radius: 8px;
+    background: linear-gradient(180deg, linen 99.2%, #ff4C1D 0.5%, #9b0063);
+    padding: 14px 20px 60px 20px;
+    
+}
+
+.label { 
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: #9b0063;
+    line-height: 32px;
+}

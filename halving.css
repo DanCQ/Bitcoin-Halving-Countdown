@@ -50,7 +50,7 @@ header {
 
 hr {
     height: 2px;
-    background: linear-gradient(120deg,#ff4C1D,#9b0063, #ff4C1D);
+    background: linear-gradient(120deg,#ff4C1D, orange, #ff4C1D);
     border: 0px;
     margin-left: 70px;
     margin-right: 70px;

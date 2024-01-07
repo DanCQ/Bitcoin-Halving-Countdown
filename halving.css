@@ -61,7 +61,7 @@ li {
     margin: 3px 0px 3px -8px;
     list-style-type: none;
 }
-/* solves list alignment */
+
 main {
     color: #3C4043;
     display: flex;
@@ -86,26 +86,26 @@ ul {
 }
 
 #bitcoin {
+    font-size: 34px;
     text-shadow: -0.5px 2.5px 1.5px #f7931a;
 }
 
 .banner {
     font-size: 28px;
-    line-height: 40px;
+    line-height: 38px;
 }
 
 .frame {
     border-radius: 8px;
     background: linear-gradient(180deg, linen 99.2%, #ff4C1D 0.5%, #9b0063);
     padding: 14px 20px 60px 20px;
-    
 }
 
 .label { 
     border-top-style: solid;
     border-bottom-style: solid;
     border-width: 2px;
-    border-color: #9b0063;
+    border-color: #9b0063; 
     padding: 1px;
     line-height: 55px;
 }

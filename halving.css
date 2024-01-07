@@ -97,7 +97,7 @@ ul {
 
 .frame {
     border-radius: 8px;
-    background: linear-gradient(180deg, linen 99.2%, #ff4C1D 0.5%, #9b0063);
+    background: linear-gradient(180deg, linen 99.2%, orange 99.3%, #ff4C1D);
     padding: 14px 20px 60px 20px;
 }
 

@@ -85,6 +85,10 @@ ul {
     text-align:center;
 }
 
+#bitcoin {
+    text-shadow: -0.5px 2.5px 1.5px #f7931a;
+}
+
 .banner {
     font-size: 28px;
     line-height: 40px;
@@ -102,5 +106,6 @@ ul {
     border-bottom-style: solid;
     border-width: 2px;
     border-color: #9b0063;
-    line-height: 32px;
+    padding: 1px;
+    line-height: 55px;
 }

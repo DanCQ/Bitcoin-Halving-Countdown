@@ -68,7 +68,6 @@ main {
     flex-direction: row;
     flex-wrap: wrap;
     font-family: chalkboard, monospace;
-    font-size: 16px;
     justify-content: space-evenly;
     min-height:60vh;
     padding:5px;
@@ -76,6 +75,7 @@ main {
 
 ul {
     display: inline-block;
+    font-size: 17.5px;
     margin: 30px 10px 0px 10px;
     max-width: 280px;
     min-width: 250px;

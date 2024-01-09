@@ -1,11 +1,13 @@
-let now = document.getElementById("current-block-height");
-let toGo = document.getElementById("remaining-blocks");
-let time = document.getElementById("remaining-time");
+const halving = document.getElementById("halving-block");
+const now = document.getElementById("current-block-height");
+const time = document.getElementById("remaining-time");
+const toGo = document.getElementById("remaining-blocks");
+
 
 async function getCurrentBlockHeight() {
     try {
-        const response = await fetch('https://api.blockchair.com/bitcoin/stats');
-        const data = await response.json();
+        let response = await fetch('https://api.blockchair.com/bitcoin/stats');
+        let data = await response.json();
         return data.data.blocks;
     } catch (error) {
         console.error('Error fetching current block height:', error.message);
@@ -25,13 +27,16 @@ function estimateTimeRemaining(remainingBlocks, averageBlockTime = 10) {
   
 async function main() {
     try {
-        const currentBlockHeight = await getCurrentBlockHeight();
-        const remainingBlocks = calculateRemainingBlocks(currentBlockHeight);
-        const remainingTime = estimateTimeRemaining(remainingBlocks);
+        let currentBlockHeight = await getCurrentBlockHeight();
+        let remainingBlocks = calculateRemainingBlocks(currentBlockHeight);
 
+        let halvingBlock = currentBlockHeight + remainingBlocks;
+        let remainingTime = estimateTimeRemaining(remainingBlocks);
+
+        halving.textContent = halvingBlock;
         now.textContent = currentBlockHeight;
+        time.textContent = remainingTime; 
         toGo.textContent = remainingBlocks;
-        time.textContent = remainingTime;
 
     } catch (error) {
         console.error('An error occurred:', error.message);

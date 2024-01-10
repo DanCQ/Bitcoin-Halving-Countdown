@@ -1,10 +1,8 @@
 # Bitcoin Halving Countdown
 
-UnDer CONStrucTion!!!
-
 <a href="https://bitcoin-halving-countdown.pages.dev/">Bitcoin Halving Countdown</a>
 
 My own personal tracking of The Bitcoin Halving event, and other related information. <br>
-Just in case other sites disapear.
+For redundancy, in case other sites crash, or disapear.
 
-Using the Bitcoin Blockchair API.
+Using the Bitcoin Blockchair API. (planning to add more APIs, for backup).

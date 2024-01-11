@@ -40,6 +40,8 @@ async function main() {
         time.textContent = realTime; 
         toGo.textContent = remainingBlocks;
 
+        updateCountdown();
+
     } catch (error) {
         console.error('An error occurred:', error.message);
     }
@@ -66,7 +68,6 @@ function calculateCountdown(totalMinutes) {
         days = Math.floor((totalMinutes % oneYearInMinutes) / oneDayInMinutes);
         hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
         minutes = Math.floor(totalMinutes % oneHourInMinutes);
-        setTimeout(updateCountdown, 6000); // Update every minute 
 
         realTime.textContent = `${days} Days, ${hours} Hours ` //, ${minutes} Minutes.`
 
@@ -75,7 +76,6 @@ function calculateCountdown(totalMinutes) {
       }
     }
   
-    updateCountdown();
   }
   
 

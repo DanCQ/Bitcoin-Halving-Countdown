@@ -33,12 +33,12 @@ async function main() {
         let halvingBlock = currentBlockHeight + remainingBlocks;
         let remainingTime = estimateTimeRemaining(remainingBlocks);
 
+        calculateCountdown(remainingTime);
+
         halving.textContent = halvingBlock;
         now.textContent = currentBlockHeight;
         time.textContent = realTime; 
         toGo.textContent = remainingBlocks;
-
-        calculateCountdown(remainingTime);
 
     } catch (error) {
         console.error('An error occurred:', error.message);

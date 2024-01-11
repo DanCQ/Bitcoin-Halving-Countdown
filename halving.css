@@ -83,15 +83,23 @@ main {
     padding:5px;
 }
 
-ul {
-    display: inline-block;
+.time {
     font-size: 17.5px;
-    margin: 30px 10px 0px 10px;
+    height: 17.5px;
+    text-align:center;
+    padding:20px;
+    margin-top: 25px;
+}
+
+ul {
+    /* display: inline-block; */
+    font-size: 17.5px;
+    margin: 20px 10px 0px 10px;
     max-width: 280px;
     min-width: 250px;
     padding-bottom: 10px;
     padding-left:8px;
-    padding-top: 15px;
+    padding-top: 10px;
     text-align:center;
 }
 

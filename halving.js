@@ -2,7 +2,7 @@ const halving = document.getElementById("halving-block");
 const now = document.getElementById("current-block-height");
 const time = document.getElementById("remaining-time");
 const toGo = document.getElementById("remaining-blocks");
-
+const realTime = document.querySelector(".time");
 
 async function getCurrentBlockHeight() {
     try {
@@ -38,10 +38,46 @@ async function main() {
         time.textContent = remainingTime; 
         toGo.textContent = remainingBlocks;
 
+        calculateCountdown(remainingTime);
+
     } catch (error) {
         console.error('An error occurred:', error.message);
     }
 }
+
+//!!!!!!!still working this out to get it correct!!!!!!!!!
+function calculateCountdown(totalMinutes) {
+    const oneYearInMinutes = 365 * 24 * 60;
+    const oneDayInMinutes = 24 * 60;
+    const oneHourInMinutes = 60;
+  
+    let years = Math.floor(totalMinutes / oneYearInMinutes);
+    let days = Math.floor((totalMinutes % oneYearInMinutes) / oneDayInMinutes);
+    let hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
+    let minutes = Math.floor(totalMinutes % oneHourInMinutes);
+    let seconds = 0;
+  
+    function updateCountdown() {
+      console.log(`${years} years, ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`);
+      
+      if (totalMinutes > 0) {
+        totalMinutes--;
+        years = Math.floor(totalMinutes / oneYearInMinutes);
+        days = Math.floor((totalMinutes % oneYearInMinutes) / oneDayInMinutes);
+        hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
+        minutes = Math.floor(totalMinutes % oneHourInMinutes);
+        setTimeout(updateCountdown, 1000); // Update every second
+
+        realTime.textContent = `${days} Days` //, ${hours} Hours, ${minutes} Minutes.`
+
+      } else {
+        console.log("Countdown complete!");
+      }
+    }
+  
+    updateCountdown();
+  }
+  
 
 window.onload= function() {
     

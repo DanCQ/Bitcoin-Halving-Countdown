@@ -11,85 +11,6 @@ body {
     padding: 8px;
 }
 
-h1 {
-    background: linear-gradient(160deg,#ff4C1D,#9b0063);
-    border-radius: 5px;
-    color: white;
-    font-family: arial rounded mt bold, sans-serif;
-    font-weight: 600;
-    margin-left: -25px;
-    margin-right: -25px;
-    padding: 6px 10px;
-    text-align: center;
-    opacity: 99%;
-}
-
-h2 {
-    color: #3C4043;
-    font-family: chalkduster, monospace;
-    font-size: 19px;
-    margin: auto;
-    text-align: center;
-    text-shadow: 0px 1px 0.5px darkorange;
-}
-
-header {
-    min-width: 100%;
-}
-
-hr {
-    height: 2px;
-    background: linear-gradient(120deg,#ff4C1D, orange, #ff4C1D);
-    border: 0px;
-    margin-left: 70px;
-    margin-right: 70px;
-    min-width: 140px;
-}
-
-li {
-    margin: 3px 0px 3px -8px;
-    list-style-type: none;
-}
-
-main {
-    color: #3C4043;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    font-family: chalkboard, monospace;
-    justify-content: space-evenly;
-    min-height:60vh;
-    padding:5px;
-}
-
-ul {
-    display: inline-block;
-    font-size: 17.5px;
-    margin: 30px 10px 0px 10px;
-    max-width: 280px;
-    min-width: 250px;
-    padding-bottom: 10px;
-    padding-left:8px;
-    padding-top: 15px;
-    text-align:center;
-}
-
-#bitcoin {
-    font-size: 34px;
-    text-shadow: -0.5px 2.5px 1.5px #f7931a;
-}
-
-.banner {
-    font-size: 28px;
-    line-height: 38px;
-}
-
-.frame {
-    border-radius: 8px;
-    background: linear-gradient(180deg, linen 99.2%, orange 99.3%, #ff4C1D);
-    padding: 14px 20px 60px 20px;
-}
-
 footer {
     font-family: "raleway", "roboto";
     padding-bottom: 8px;
@@ -111,11 +32,101 @@ footer a:hover {
     color: darkorange;
 }
 
+h1 {
+    background: linear-gradient(160deg,#ff4C1D,#9b0063);
+    border-radius: 5px;
+    color: white;
+    font-family: arial rounded mt bold, sans-serif;
+    font-weight: 600;
+    margin-left: -25px;
+    margin-right: -25px;
+    padding: 6px 10px;
+    text-align: center;
+}
+
+h2 {
+    color: #3C4043;
+    font-family: chalkduster, monospace;
+    font-size: 19px;
+    /* margin: auto; */
+    text-align: center;
+    text-shadow: 0px 1px 0.5px darkorange;
+}
+
+/* header {
+    width: 100%;
+} */
+
+hr {
+    background: linear-gradient(120deg,#ff4C1D, orange, #ff4C1D);
+    border: 0px;
+    height: 2px;
+    margin-left: 70px;
+    margin-right: 70px;
+    min-width: 140px;
+    clear:both;
+}
+
+li {
+    list-style-type: none;
+    margin: 3px 0px 3px -8px;
+}
+
+main {
+    color: #3C4043;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-family: chalkboard, monospace;
+    justify-content: space-evenly;
+    min-height:100vh;
+    padding:5px;
+}
+
+ul {
+    display: inline-block;
+    font-size: 17.5px;
+    margin: 30px 10px 0px 10px;
+    max-width: 280px;
+    min-width: 250px;
+    padding-bottom: 10px;
+    padding-left:8px;
+    padding-top: 15px;
+    text-align:center;
+}
+
+#bitcoin {
+    font-size: 34px;
+    text-shadow: -0.5px 2.5px 1.5px #f7931a;
+}
+
+.background {
+    position:absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:100vh;
+    opacity: 0.07;
+    width:100%;
+    z-index:0;
+}
+
+.banner {
+    font-size: 28px;
+    line-height: 38px;
+}
+
+.frame {
+    background: linear-gradient(180deg, linen 99.2%, orange 99.3%, #ff4C1D);
+    border-radius: 8px;
+    padding: 14px 20px 11px 20px;
+}
+
 .label { 
-    border-top-style: solid;
     border-bottom-style: solid;
-    border-width: 2px;
     border-color: #9b0063; 
-    padding: 1px;
+    border-top-style: solid;
+    border-width: 2px;
     line-height: 55px;
+    padding: 1px;
 }

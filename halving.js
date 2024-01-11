@@ -40,8 +40,6 @@ async function main() {
         time.textContent = realTime; 
         toGo.textContent = remainingBlocks;
 
-        updateCountdown();
-
     } catch (error) {
         console.error('An error occurred:', error.message);
     }
@@ -75,6 +73,8 @@ function calculateCountdown(totalMinutes) {
         console.log("Countdown complete!");
       }
     }
+    
+    updateCountdown();
   
   }
   

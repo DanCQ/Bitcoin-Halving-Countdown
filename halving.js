@@ -35,7 +35,7 @@ async function main() {
 
         halving.textContent = halvingBlock;
         now.textContent = currentBlockHeight;
-        time.textContent = remainingTime; 
+        time.textContent = realTime; 
         toGo.textContent = remainingBlocks;
 
         calculateCountdown(remainingTime);

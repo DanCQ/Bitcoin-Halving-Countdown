@@ -45,7 +45,7 @@ async function main() {
     }
 }
 
-//!!!!!!!still working on this-- to get it correct!!!!!!!!!
+//!!!! still working on this-- to get it correct !!!!!
 function calculateCountdown(totalMinutes) {
     const oneYearInMinutes = 365 * 24 * 60;
     const oneDayInMinutes = 24 * 60;
@@ -66,7 +66,7 @@ function calculateCountdown(totalMinutes) {
         days = Math.floor((totalMinutes % oneYearInMinutes) / oneDayInMinutes);
         hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
         minutes = Math.floor(totalMinutes % oneHourInMinutes);
-        setTimeout(updateCountdown, 1000); // Update every second
+        setTimeout(updateCountdown, 6000); // Update every minute 
 
         realTime.textContent = `${days} Days, ${hours} Hours ` //, ${minutes} Minutes.`
 

@@ -1,8 +1,8 @@
-const halving = document.getElementById("halving-block");
 const now = document.getElementById("current-block-height");
 const time = document.getElementById("remaining-time");
-const toGo = document.getElementById("remaining-blocks");
 const realTime = document.querySelector(".time");
+const halving = document.getElementById("halving-block");
+const toGo = document.getElementById("remaining-blocks");
 
 async function getCurrentBlockHeight() {
     try {

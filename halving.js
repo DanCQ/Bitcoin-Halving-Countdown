@@ -28,7 +28,7 @@ function estimateTimeRemaining(remainingBlocks, averageBlockTime = 10) {
 async function main() {
     try {
         let currentBlockHeight = await getCurrentBlockHeight();
-        let remainingBlocks = halvingBlock - currentBlockHeight;
+        let remainingBlocks = calculateRemainingBlocks(currentBlockHeight);
 
         let halvingBlock = currentBlockHeight + remainingBlocks;
         let remainingTime = estimateTimeRemaining(remainingBlocks);

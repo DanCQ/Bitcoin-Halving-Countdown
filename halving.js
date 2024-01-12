@@ -1,8 +1,7 @@
 const halving = document.getElementById("halving-block");
-const now = document.getElementById("current-block-height");
-const time = document.getElementById("remaining-time");
+const height = document.getElementById("current-block-height");
 const toGo = document.getElementById("remaining-blocks");
-const realTime = document.querySelector(".time");
+const time = document.getElementById("time");
 
 async function getCurrentBlockHeight() {
     try {
@@ -34,8 +33,7 @@ async function main() {
         let remainingTime = estimateTimeRemaining(remainingBlocks);
 
         halving.textContent = halvingBlock;
-        now.textContent = currentBlockHeight;
-        time.textContent = remainingTime; 
+        height.textContent = currentBlockHeight;
         toGo.textContent = remainingBlocks;
 
         calculateCountdown(remainingTime);
@@ -55,31 +53,36 @@ function calculateCountdown(totalMinutes) {
     let days = Math.floor((totalMinutes % oneYearInMinutes) / oneDayInMinutes);
     let hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
     let minutes = Math.floor(totalMinutes % oneHourInMinutes);
-    let seconds = 0;
   
     function updateCountdown() {
-      console.log(`${years} years, ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`);
-      
-      if (totalMinutes > 0) {
+
         totalMinutes--;
         years = Math.floor(totalMinutes / oneYearInMinutes);
         days = Math.floor((totalMinutes % oneYearInMinutes) / oneDayInMinutes);
         hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
         minutes = Math.floor(totalMinutes % oneHourInMinutes);
-        setTimeout(updateCountdown, 1000); // Update every second
+        setTimeout(updateCountdown, 60000); // Update every minute
 
-        realTime.textContent = `${days} Days, ${hours} Hours ` //, ${minutes} Minutes.`
+        function setCountdown() {
+            if (years > 0) {
+                return `${years} years, ${days} days, ${hours} hours, ${minutes} minutes`;
+            } else if (days > 0) {
+                return `${days} days, ${hours} hours, ${minutes} minutes`;
+            } else if (hours > 0) {
+                return `${hours} hours, ${minutes} minutes`;
+            } else {
+                return `${minutes} minutes`;
+            }
+        }
 
-      } else {
-        console.log("Countdown complete!");
-      }
+        time.textContent = setCountdown();
     }
   
     updateCountdown();
   }
   
 
-window.onload= function() {
+window.onload = function() {
     
     main(); //runs once without delay
 

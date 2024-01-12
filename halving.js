@@ -1,8 +1,8 @@
+const halving = document.getElementById("halving-block");
 const now = document.getElementById("current-block-height");
 const time = document.getElementById("remaining-time");
-const realTime = document.querySelector(".time");
-const halving = document.getElementById("halving-block");
 const toGo = document.getElementById("remaining-blocks");
+const realTime = document.querySelector(".time");
 
 async function getCurrentBlockHeight() {
     try {
@@ -33,19 +33,19 @@ async function main() {
         let halvingBlock = currentBlockHeight + remainingBlocks;
         let remainingTime = estimateTimeRemaining(remainingBlocks);
 
-        calculateCountdown(remainingTime);
-
         halving.textContent = halvingBlock;
         now.textContent = currentBlockHeight;
-        time.textContent = realTime; 
+        time.textContent = remainingTime; 
         toGo.textContent = remainingBlocks;
+
+        calculateCountdown(remainingTime);
 
     } catch (error) {
         console.error('An error occurred:', error.message);
     }
 }
 
-//!!!! still working on this-- to get it correct !!!!!
+//!!!!!!!still working on this-- to get it correct!!!!!!!!!
 function calculateCountdown(totalMinutes) {
     const oneYearInMinutes = 365 * 24 * 60;
     const oneDayInMinutes = 24 * 60;
@@ -66,6 +66,7 @@ function calculateCountdown(totalMinutes) {
         days = Math.floor((totalMinutes % oneYearInMinutes) / oneDayInMinutes);
         hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
         minutes = Math.floor(totalMinutes % oneHourInMinutes);
+        setTimeout(updateCountdown, 1000); // Update every second
 
         realTime.textContent = `${days} Days, ${hours} Hours ` //, ${minutes} Minutes.`
 
@@ -73,9 +74,8 @@ function calculateCountdown(totalMinutes) {
         console.log("Countdown complete!");
       }
     }
-    
-    updateCountdown();
   
+    updateCountdown();
   }
   
 

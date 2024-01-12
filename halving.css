@@ -55,11 +55,11 @@ h2 {
 hr {
     background: linear-gradient(120deg,#ff4C1D, orange, #ff4C1D);
     border: 0px;
+    clear:both;
     height: 2px;
     margin-left: 70px;
     margin-right: 70px;
     min-width: 140px;
-    clear:both;
 }
 
 li {
@@ -73,22 +73,16 @@ main {
     flex-direction: row;
     flex-wrap: wrap;
     font-family: chalkboard, monospace;
-    justify-content: space-evenly;
-    min-height:100vh;
-    padding:5px;
-}
-
-.time {
-    font-size: 17.5px;
-    height: 17.5px;
-    text-align:center;
-    padding:20px;
-    margin-top: 25px;
+    justify-content:space-evenly;
+    max-height: 100vh;
+    min-height: 95vh;
+    padding: 5px;
 }
 
 ul {
     font-size: 17.5px;
-    margin: 20px 10px 0px 10px;
+    height: fit-content;
+    margin: 5px 10px 5px 10px;
     max-width: 280px;
     min-width: 250px;
     padding-bottom: 10px;
@@ -102,13 +96,13 @@ ul {
     text-shadow: -0.5px 2.5px 1.5px #f7931a;
 }
 
-.background {
+.background-img {
     position:absolute;
     left:0;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height:100vh;
+    height: 100vh;
     opacity: 0.08;
     width:100%;
 }
@@ -116,6 +110,11 @@ ul {
 .banner {
     font-size: 28px;
     line-height: 38px;
+}
+
+.count-down {
+    min-width:100%;
+    margin-top: 6%;
 }
 
 .frame {

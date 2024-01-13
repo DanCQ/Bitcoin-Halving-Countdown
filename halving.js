@@ -14,7 +14,6 @@ async function getCurrentBlockHeight() {
     }
 }
 
-
 function calculateRemainingBlocks(currentBlock, halvingInterval = 210000) {
     return halvingInterval - (currentBlock % halvingInterval);
 }
@@ -43,8 +42,9 @@ async function main() {
     }
 }
 
-//!!!!!!!still working on this-- to get it correct!!!!!!!!!
+
 function calculateCountdown(totalMinutes) {
+
     const oneYearInMinutes = 365 * 24 * 60;
     const oneDayInMinutes = 24 * 60;
     const oneHourInMinutes = 60;
@@ -53,33 +53,43 @@ function calculateCountdown(totalMinutes) {
     let days = Math.floor((totalMinutes % oneYearInMinutes) / oneDayInMinutes);
     let hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
     let minutes = Math.floor(totalMinutes % oneHourInMinutes);
+
+
+    function setCountdown() {
+
+        let count = `${minutes} minutes`;
+
+        if (hours > 0) {
+            count = `${hours} hours, ${count}`;
+        }
+        if (days > 0) {
+            count = `${days} days, ${count}`;
+        }
+        if (years > 0) {
+            count = `${years} years, ${count}`;
+        }
+        return count;
+    }
   
+
     function updateCountdown() {
 
-        totalMinutes--;
-        years = Math.floor(totalMinutes / oneYearInMinutes);
-        days = Math.floor((totalMinutes % oneYearInMinutes) / oneDayInMinutes);
-        hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
-        minutes = Math.floor(totalMinutes % oneHourInMinutes);
-        setTimeout(updateCountdown, 60000); // Update every minute
+        setTimeout(() => {
+            totalMinutes--;
+            years = Math.floor(totalMinutes / oneYearInMinutes);
+            days = Math.floor((totalMinutes % oneYearInMinutes) / oneDayInMinutes);
+            hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
+            minutes = Math.floor(totalMinutes % oneHourInMinutes);
+            
+            updateCountdown();
 
-        function setCountdown() {
-            if (years > 0) {
-                return `${years} years, ${days} days, ${hours} hours, ${minutes} minutes`;
-            } else if (days > 0) {
-                return `${days} days, ${hours} hours, ${minutes} minutes`;
-            } else if (hours > 0) {
-                return `${hours} hours, ${minutes} minutes`;
-            } else {
-                return `${minutes} minutes`;
-            }
-        }
-
-        time.textContent = setCountdown();
+            time.textContent = setCountdown();
+        }, 60000); //updates every minute
     }
   
     updateCountdown();
-  }
+    time.textContent = setCountdown();
+}
   
 
 window.onload = function() {

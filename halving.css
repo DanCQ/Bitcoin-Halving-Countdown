@@ -120,7 +120,7 @@ ul {
 .frame {
     background: linear-gradient(180deg, linen 99.2%, orange 99.3%, #ff4C1D);
     border-radius: 8px;
-    padding: 14px 20px 11px 20px;
+    padding: 6px 20px 11px 20px;
 }
 
 .label { 

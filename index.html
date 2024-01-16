@@ -16,6 +16,9 @@
         <!-- defer loads html first then JS -->
         <script defer type="text/javascript" src="halving.js"></script>
 
+        <!-- ticker widget -->
+        <script defer type="text/javascript" src="https://widget.coinlore.com/widgets/ticker-widget.js"></script>
+
         <title>Bitcoin Halving Countdown</title>    
     </head>
 
@@ -30,10 +33,13 @@
                 <h2>Tracking The Bitcoin Halving Event</h2>
                 <hr>
             </header>
-
-            <img class="background-img" src="assets/bitcoin.png" />
             
+            <!-- top ten currency ticker -->
+            <div class="coinlore-priceticker-widget" data-mcurrency="usd" data-bcolor="linen" data-scolor="steelblue" data-ccolor="black" data-pcolor="goldenrod"></div>
 
+            
+            <img class="background-img" src="assets/bitcoin.png" />           
+            
             <main>            
                 
                 <ul class="count-down">
@@ -73,15 +79,17 @@
                 </ul>
                 
             </main>
-            
-        </div>        
         
+        </div>        
+
     </body>
     
     <footer>
+        
         <a href="https://dany-cervantes-portfolio.pages.dev/" target="_blank">
             Visit my portfolio
         </a>
+        
     </footer>
 
 </html>

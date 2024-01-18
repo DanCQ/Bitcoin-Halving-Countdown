@@ -92,15 +92,15 @@ function calculateCountdown(totalMinutes) {
 }
 
 
-//code for the Coinlore Ticker Widget
-//I added white space, and I'm attempting to understand it & customize it
+//Coinlore Priceticker Widget
+//I added white space, and I'm attempting to understand & customize it
 function coinloreTicker() {
 
-    var e;
+    let e;
 
     if (void 0 === window.jQuery || "1.4.2" !== window.jQuery.fn.jquery) {
         
-        var t = document.createElement("script");
+        let t = document.createElement("script");
         
         t.setAttribute("type", "text/javascript"),
         t.setAttribute("src", "https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"),
@@ -121,31 +121,22 @@ function coinloreTicker() {
     function i() {
         e(document).ready( function(e) {
 
-            var width;
-            var color;
-            var symbol = '';
-            var mc_text = '';
-            var bcolor = ''; 
-            var ccolor = '';
-            var pcolor = '';
-            var mcap = '';
-            var adtd = '';
+            let color;
+            let ccolor = "black";
+            let pcolor = 'goldenrod';
+            let scolor = "steelblue"; 
+            let symbol = '';
+            let width;
             
             e(".coinlore-priceticker-widget").each(function() { 
-
-                bcolor = e(this).attr("data-bcolor");
-                pcolor = e(this).attr("data-pcolor");
-                ccolor = e(this).attr("data-ccolor");
-                scolor = e(this).attr("data-scolor");
 
                 e.get("https://widget.coinlore.com/widgets/top-list/?top=" + 
                 e(this).attr("data-top") + "&cur=" + 
                 e(this).attr("data-mcurrency"), 
-                
+
                 function(t) { 
-                    cc = '<div style = "color: #333; background: '+ bcolor +'; font-family: Helvetica, Arial,sans-serif; min-width: 300px; width: 100%; line-height: 35px; font-size: 16px;">';
-                    
-                    cc += '<div class = "marqueecoinlore" >';
+                
+                    let cc = '<div class = "marqueecoinlore" >';
                     
                     t.forEach(function(entry) { 
                         symbol = '';

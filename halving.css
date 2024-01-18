@@ -122,9 +122,16 @@ ul {
 
 .coinlore-priceticker-widget {
     animation: marquee 45s linear infinite;
-    overflow: hidden;
+    background-color: linen;
+    color: #333;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16.5px;
+    height: 40px;
+    line-height: 40px; 
     margin-left:-20px;
     margin-right:-20px;
+    min-width: 300px;
+    overflow: hidden;
     white-space: nowrap;
 }
 

@@ -121,8 +121,15 @@ ul {
 }
 
 .coinlore-priceticker-widget {
-    margin-left: -20px;
-    margin-right: -20px;
+    animation: marquee 45s linear infinite;
+    overflow: hidden;
+    margin-left:-20px;
+    margin-right:-20px;
+    white-space: nowrap;
+}
+
+.coinlore-priceticker-widget:hover {
+    animation-play-state: paused; 
 }
 
 .count-down {
@@ -143,4 +150,8 @@ ul {
     border-width: 2px;
     line-height: 55px;
     padding: 1px;
+}
+
+@keyframes marquee{ 
+    0%{ text-indent:100% } 100%{ text-indent:-250% }
 }

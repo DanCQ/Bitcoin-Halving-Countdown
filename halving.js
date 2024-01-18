@@ -141,14 +141,9 @@ function coinloreTicker() {
                 e.get("https://widget.coinlore.com/widgets/top-list/?top=" + 
                 e(this).attr("data-top") + "&cur=" + 
                 e(this).attr("data-mcurrency"), 
+                
                 function(t) { 
-                    cc = '<style>' +
-                    '.marqueecoinlore { width:100%; margin:0 auto; overflow:hidden; white-space:nowrap; box-sizing:border-box; animation:marquee 45s linear infinite }' +
-                    '.marqueecoinlore:hover { animation-play-state:paused }' + 
-                    '@keyframes marquee{ 0%{ text-indent:60% } 100%{ text-indent:-175em } }' +
-                    '</style>';
-                    
-                    cc += '<div style = "color: #333; background: '+ bcolor +'; font-family: Helvetica, Arial,sans-serif; min-width: 300px; width: 100%; line-height: 35px; font-size: 16px;">';
+                    cc = '<div style = "color: #333; background: '+ bcolor +'; font-family: Helvetica, Arial,sans-serif; min-width: 300px; width: 100%; line-height: 35px; font-size: 16px;">';
                     
                     cc += '<div class = "marqueecoinlore" >';
                     

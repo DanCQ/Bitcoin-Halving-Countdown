@@ -97,6 +97,7 @@ ul {
     padding-left: 8px;
     padding-top: 10px;
     text-align: center;
+    z-index:1;
 }
 
 #bitcoin {

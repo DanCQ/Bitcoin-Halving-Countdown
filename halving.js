@@ -1,14 +1,19 @@
 const halving = document.getElementById("halving-block");
 const height = document.getElementById("current-block-height");
 const toGo = document.getElementById("remaining-blocks");
+
 const time = document.getElementById("time");
 
+//async function can handle tasks that take some time to complete
 async function getCurrentBlockHeight() {
-    try {
-        let response = await fetch('https://api.blockchair.com/bitcoin/stats');
-        let data = await response.json();
+    try { 
+        let response = await fetch('https://api.blockchair.com/bitcoin/stats'); //waits grab data before moving on
+        let data = await response.json(); //waits convert data in a workable format
+
+        console.log(data); //view JS console: to see all data that was retrieved
         return data.data.blocks;
-    } catch (error) {
+
+    } catch (error) { //if data could not be retrieved, error message will be shown
         console.error('Error fetching current block height:', error.message);
         throw error;
     }
@@ -70,7 +75,7 @@ function calculateCountdown(totalMinutes) {
         }
         return count;
     }
-  
+
 
     function updateCountdown() {
 

@@ -29,12 +29,12 @@ async function getCurrentBlockHeight() {
 
             if(apiArray[api] == apiBlockchair) {
 
-                console.log(data); //view JS console: to see all data that was retrieved
+                console.log(apiArray[api], data); //view JS console to see data retrieved
                 return data.data.blocks; //the current block number
 
             } else if (apiArray[api] == apiBlockchain) {
 
-                console.log(data); //view JS console: to see all data that was retrieved
+                console.log(apiArray[api], data); //view JS console to see data retrieved
                 return data; //the current block number
 
             } 

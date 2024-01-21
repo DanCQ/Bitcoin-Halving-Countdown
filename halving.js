@@ -1,53 +1,53 @@
 const halving = document.getElementById("halving-block");
 const height = document.getElementById("current-block-height");
-const toGo = document.getElementById("remaining-blocks");
+const remaining = document.getElementById("remaining-blocks");
+const timeEstimate = document.getElementById("time-estimate");
 
-const time = document.getElementById("time");
+const apiBlockchair = 'https://api.blockchair.com/bitcoin/stats';
+const apiBlockchain = 'https://blockchain.info/q/getblockcount';
 
+//future plan
+// let array = [
+//     {
+//         name: "",
+//         url: ""
+//     },
+// ];
+
+//multiple for redundancy
+const apiArray = [apiBlockchair, apiBlockchain]; 
+
+//!important
 //async function can handle tasks that take some time to complete
 async function getCurrentBlockHeight() {
-    try { 
-        let response = await fetch('https://api.blockchair.com/bitcoin/stats'); //waits grab data before moving on
-        let data = await response.json(); //waits convert data in a workable format
 
-        console.log(data); //view JS console: to see all data that was retrieved
-        return data.data.blocks;
+    for(let api in apiArray) {
 
-    } catch (error) { //if data could not be retrieved, error message will be shown
-        console.error('Error fetching current block height:', error.message);
-        throw error;
-    }
-}
+        try{
+            let response = await fetch(apiArray[api]); //waits grab data before moving on
+            let data = await response.json(); //waits to convert data in a workable format
 
-function calculateRemainingBlocks(currentBlock, halvingInterval = 210000) {
-    return halvingInterval - (currentBlock % halvingInterval);
-}
-  
-function estimateTimeRemaining(remainingBlocks, averageBlockTime = 10) {
-    return remainingBlocks * averageBlockTime;
-}
+            if(apiArray[api] == apiBlockchair) {
 
-  
-async function main() {
-    try {
-        let currentBlockHeight = await getCurrentBlockHeight();
-        let remainingBlocks = calculateRemainingBlocks(currentBlockHeight);
+                console.log(data); //view JS console: to see all data that was retrieved
+                return data.data.blocks; //the current block number
 
-        let halvingBlock = currentBlockHeight + remainingBlocks;
-        let remainingTime = estimateTimeRemaining(remainingBlocks);
+            } else if (apiArray[api] == apiBlockchain) {
 
-        halving.textContent = halvingBlock;
-        height.textContent = currentBlockHeight;
-        toGo.textContent = remainingBlocks;
+                console.log(data); //view JS console: to see all data that was retrieved
+                return data; //the current block number
 
-        calculateCountdown(remainingTime);
+            } 
 
-    } catch (error) {
-        console.error('An error occurred:', error.message);
-    }
+        } catch (error) { //if data could not be retrieved, error message will be shown
+            console.error('Error fetching current block height:', error.message);
+            throw error;
+        }
+    };
 }
 
 
+//totalMinutes value provided later
 function calculateCountdown(totalMinutes) {
 
     const oneYearInMinutes = 365 * 24 * 60;
@@ -60,45 +60,67 @@ function calculateCountdown(totalMinutes) {
     let minutes = Math.floor(totalMinutes % oneHourInMinutes);
 
 
-    function setCountdown() {
-
-        let count = `${minutes} minutes`;
-
-        if (hours > 0) {
-            count = `${hours} hours, ${count}`;
-        }
-        if (days > 0) {
-            count = `${days} days, ${count}`;
-        }
-        if (years > 0) {
-            count = `${years} years, ${count}`;
-        }
-        return count;
-    }
-
-
     function updateCountdown() {
 
-        setTimeout(() => {
-            totalMinutes--;
-            years = Math.floor(totalMinutes / oneYearInMinutes);
-            days = Math.floor((totalMinutes % oneYearInMinutes) / oneDayInMinutes);
-            hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
-            minutes = Math.floor(totalMinutes % oneHourInMinutes);
-            
-            updateCountdown();
+        function setCountdown() {
 
-            time.textContent = setCountdown();
-        }, 60000); //updates every minute
+            let count = `${minutes} minutes`;
+    
+            //values added only if above zero
+            if (hours > 0) {
+                count = `${hours} hours, ${count}`;
+            }
+            if (days > 0) {
+                count = `${days} days, ${count}`;
+            }
+            if (years > 0) {
+                count = `${years} years, ${count}`;
+            }
+            return count;
+        }
+        
+        timeEstimate.textContent = setCountdown();
     }
   
     updateCountdown();
-    time.textContent = setCountdown();
+}
+
+
+function calculateRemainingBlocks(currentBlock, halvingInterval = 210000) {
+    return halvingInterval - (currentBlock % halvingInterval);
+}
+
+
+//estimation 'cause blocks are formed about every 10 minutes
+function estimateTimeRemaining(remainingBlocks, averageBlockTime = 10) {
+    return remainingBlocks * averageBlockTime;
+}
+
+
+//should never fail, if getCurrentBlockHeight succeeded
+async function main() {
+    try {
+        let currentBlockHeight = await getCurrentBlockHeight(); //nested async
+        let remainingBlocks = calculateRemainingBlocks(currentBlockHeight);
+
+        let halvingBlock = currentBlockHeight + remainingBlocks;
+        let remainingTime = estimateTimeRemaining(remainingBlocks);
+
+        halving.textContent = halvingBlock;
+        height.textContent = currentBlockHeight;
+        remaining.textContent = remainingBlocks;
+
+        //here since remainingTime is local scope value + main() will be an interval
+        calculateCountdown(remainingTime);
+
+    } catch (error) {
+        console.error('Error occurred in main():', error.message);
+    }
 }
 
 
 //Coinlore Priceticker Widget
-//I added white space, and I'm attempting to understand & customize it
+//added white space, I'm attempting to understand & customize it
 function coinloreTicker() {
 
     let e;
@@ -182,7 +204,7 @@ window.onload = function() {
 
     coinloreTicker(); //price ticker
 
-    setInterval(function() { main() }, 1000 * 60); //refresh info every minute
+    setInterval( () => { main(); }, 1000 * 60); //refresh info every minute
 
 };
 

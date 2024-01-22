@@ -3,47 +3,65 @@ const height = document.getElementById("current-block-height");
 const remaining = document.getElementById("remaining-blocks");
 const timeEstimate = document.getElementById("time-estimate");
 
-const apiBlockchair = 'https://api.blockchair.com/bitcoin/stats';
-const apiBlockchain = 'https://blockchain.info/q/getblockcount';
-
-//future plan
-// let array = [
-//     {
-//         name: "",
-//         url: ""
-//     },
-// ];
-
-//multiple for redundancy
-const apiArray = [apiBlockchair, apiBlockchain]; 
+//multiple APIs for redundancy
+const apiArray = [
+    {
+        name: "Blockchair",
+        url: 'https://api.blockchair.com/bitcoin/stats'
+    },
+    {
+        name: "Blockchain",
+        url: 'https://blockchain.info/q/getblockcount'
+    },
+    {
+        name: "Blockstream",
+        url: "https://blockstream.info/api/blocks/tip/height"
+    }
+];
 
 //!important
 //async function can handle tasks that take some time to complete
 async function getCurrentBlockHeight() {
 
-    for(let api in apiArray) {
+    function isNumber(value) { //is value a number; true, or false
+        return typeof(value) === 'number' && isFinite(value); //not NaN, or infinite
+    }
 
-        try{
-            let response = await fetch(apiArray[api]); //waits grab data before moving on
+    for(let api of apiArray) {
+        try {
+            let response = await fetch(api.url); //waits grab data before moving on
             let data = await response.json(); //waits to convert data in a workable format
 
-            if(apiArray[api] == apiBlockchair) {
+            console.log(api.name , data); //view JS console to see data retrieved
 
-                console.log(apiArray[api], data); //view JS console to see data retrieved
-                return data.data.blocks; //the current block number
+            if(api.url == 'https://api.blockchair.com/bitcoin/stats') {
 
-            } else if (apiArray[api] == apiBlockchain) {
+                if(isNumber(data.data.blocks)) {
+                    return data.data.blocks; //the current block number
+                }
 
-                console.log(apiArray[api], data); //view JS console to see data retrieved
-                return data; //the current block number
+            } else if (api.url == 'https://blockchain.info/q/getblockcount') {
 
-            } 
+                if(isNumber(data)) {
+                    return data; //the current block number
+                }
+
+            } else if (api.url == 'https://blockstream.info/api/blocks/tip/height') {
+
+                if(isNumber(data)) {
+                    return data; //the current block number
+                }
+            }
 
         } catch (error) { //if data could not be retrieved, error message will be shown
-            console.error('Error fetching current block height:', error.message);
-            throw error;
+            console.error(`Error fetching current block height from: ${api.name}, ${error.message}`);
+            // Continue to the next API in case of an error
+            //"throw error" not used 'cause it would exit the loop
         }
-    };
+    }
+
+    console.error('Error fetching current block height from all APIs!'); // If no APIs succeed
+    throw error; //returns an empty display
 }
 
 
@@ -114,7 +132,7 @@ async function main() {
         calculateCountdown(remainingTime);
 
     } catch (error) {
-        console.error('Error occurred in main():', error.message);
+        console.error(`Error occurred in main(), ${error.message}`);
     }
 }
 

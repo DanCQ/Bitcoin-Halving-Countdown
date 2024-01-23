@@ -110,7 +110,7 @@ function estimateTimeRemaining(remainingBlocks, averageBlockTime = 10) {
 
 
 //should never fail, if getCurrentBlockHeight succeeded
-async function main() {
+async function setDisplay() {
     try {
         let currentBlockHeight = await getCurrentBlockHeight(); //nested async
         let remainingBlocks = calculateRemainingBlocks(currentBlockHeight);
@@ -126,13 +126,13 @@ async function main() {
         calculateCountdown(remainingTime);
 
     } catch (error) {
-        console.error(`Error occurred in main(), ${error.message}`);
+        console.error(`Error occurred in setDisplay(), ${error.message}`);
     }
 }
 
 
-//Coinlore Priceticker Widget
-//added white space, I'm attempting to understand & customize it
+//Coinlore Priceticker Widget --HTML inside JavaScript--
+//I'm still attempting to understand & customize it
 function coinloreTicker() {
 
     let e;
@@ -212,11 +212,11 @@ function coinloreTicker() {
 
 window.onload = function() {
     
-    main(); //runs once without delay
+    setDisplay(); //runs once without delay
 
     coinloreTicker(); //price ticker
 
-    setInterval( () => { main(); }, 1000 * 60); //refresh info every minute
+    setInterval( () => { setDisplay(); }, 1000 * 60); //refresh info every minute
 
 };
 

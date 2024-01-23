@@ -40,27 +40,21 @@ async function getCurrentBlockHeight() {
                     return data.data.blocks; //the current block number
                 }
 
-            } else if (api.url == 'https://blockchain.info/q/getblockcount') {
+            } else if (api.url == 'https://blockchain.info/q/getblockcount' || 'https://blockstream.info/api/blocks/tip/height') {
 
                 if(isNumber(data)) {
                     return data; //the current block number
                 }
+            } 
 
-            } else if (api.url == 'https://blockstream.info/api/blocks/tip/height') {
-
-                if(isNumber(data)) {
-                    return data; //the current block number
-                }
-            }
-
-        } catch (error) { //if data could not be retrieved, error message will be shown
+        } catch (error) { //if data could not be retrieved
             console.error(`Error fetching current block height from: ${api.name}, ${error.message}`);
-            // Continue to the next API in case of an error
-            //"throw error" not used 'cause it would exit the loop
+            //continues to the next API in case of an error
+            //"throw error" not used, it would exit the loop
         }
     }
 
-    console.error('Error fetching current block height from all APIs!'); // If no APIs succeed
+    console.error(`Error fetching current block height from all APIs!`); // If no APIs succeed
     throw error; //returns an empty display
 }
 

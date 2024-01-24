@@ -135,30 +135,35 @@ async function setDisplay() {
 //I'm still attempting to understand & customize it
 function coinloreTicker() {
 
-    let e;
+    let jqElement;
 
+    //if jQuery library not defined or if jQuery version is not "1.4.2"
     if (void 0 === window.jQuery || "1.4.2" !== window.jQuery.fn.jquery) {
         
-        let t = document.createElement("script");
+        let jLibr = document.createElement("script"); //create it
         
-        t.setAttribute("type", "text/javascript"),
-        t.setAttribute("src", "https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"),
-        t.readyState ? t.onreadystatechange = function() {
+        jLibr.setAttribute("type", "text/javascript"),
+        jLibr.setAttribute("src", "https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"),
+        //Checks readyState property
+        jLibr.readyState ? jLibr.onreadystatechange = function() { 
 
+            //set onreadystatechange event to call function n() when script loads
             "complete" != this.readyState && "loaded" != this.readyState || n() 
 
-        } : t.onload = n, (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(t)
+        //readyState don't exist, set up onload event call function n() when script loads, append script to document
+        } : jLibr.onload = n, (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(jLibr)
 
-    } else e = window.jQuery, i(); 
+    //jQuery already defined and version "1.4.2", calls function i()
+    } else jqElement = window.jQuery, i();
     
 
     function n() {
-        e = window.jQuery.noConflict(!0), i()
+        jqElement = window.jQuery.noConflict(!0), i()
     }
 
 
     function i() {
-        e(document).ready( function(e) {
+        jqElement(document).ready( function(e) {
 
             let color;
             let ccolor = "black";

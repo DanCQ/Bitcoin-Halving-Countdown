@@ -147,23 +147,26 @@ function coinloreTicker() {
         //Checks readyState property
         jLibr.readyState ? jLibr.onreadystatechange = function() { 
 
-            //set onreadystatechange event to call function n() when script loads
-            "complete" != this.readyState && "loaded" != this.readyState || n() 
+            //set onreadystatechange event to call okeyDokey() when script loads
+            "complete" != this.readyState && "loaded" != this.readyState || okeyDokey() 
 
-        //readyState don't exist, set up onload event call function n() when script loads, append script to document
-        } : jLibr.onload = n, (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(jLibr)
+        //readyState don't exist, set up onload event call okeyDokey() when script loads, append script to document
+        } : jLibr.onload = okeyDokey, (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(jLibr)
 
-    //jQuery already defined and version "1.4.2", calls function i()
-    } else jqElement = window.jQuery, i();
+    //jQuery already defined and version "1.4.2", calls tickerStyle()
+    } else jqElement = window.jQuery, tickerStyle();
     
+    
+    function okeyDokey() { //allows multiple versions of jQuery without interference
 
-    function n() {
-        jqElement = window.jQuery.noConflict(!0), i()
+        jqElement = window.jQuery.noConflict(!0), tickerStyle();
+    //noConflict releases control of the $ to other libraries??
+    //(!0) true, also returns control of the jQuery var to previous owner??
     }
 
 
-    function i() {
-        jqElement(document).ready( function(e) {
+    function tickerStyle() {
+        jqElement(document).ready( (e) => {
 
             let color;
             let ccolor = "black";

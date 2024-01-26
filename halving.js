@@ -165,37 +165,39 @@ function coinloreTicker() {
     }
 
 
+    //price ticker customization
     function tickerStyle() {
-        jqElement(document).ready( (e) => {
+        jqElement(document).ready( (element) => {
 
-            let color;
-            let ccolor = "black";
-            let pcolor = 'goldenrod';
-            let scolor = "steelblue"; 
+            let color; //gain or loss percentage
+            let ccolor = "black"; //coin name
+            let pcolor = 'goldenrod'; //coin price
+            let scolor = "steelblue"; //coin abbreviation
             let symbol = '';
             let width;
             
-            e(".coinlore-priceticker-widget").each(function() { 
 
-                e.get("https://widget.coinlore.com/widgets/top-list/?top=" + 
-                e(this).attr("data-top") + "&cur=" + 
-                e(this).attr("data-mcurrency"), 
+            element(".coinlore-priceticker-widget").each(function() { 
+
+                element.get("https://widget.coinlore.com/widgets/top-list/?top=" + 
+                element(this).attr("data-top") + "&cur=" + 
+                element(this).attr("data-mcurrency"), 
 
                 function(t) { 
                 
-                    let cc = '<div class = "marqueecoinlore" >';
+                    let cc = '<div class = "marqueecoinlore" >'; //found in css style sheet
                     
                     t.forEach(function(entry) { 
                         symbol = '';
                         
                         if(entry.percent_change_24h < 0) {
-                            color = '#830000!important'; 
+                            color = '#830000!important'; //red
                         } else {
-                            color = '#007700!important';
+                            color = '#007700!important'; //green
                             symbol = '+';
                         }
                         
-                        cc += '<a style = "padding-left:10px; padding-right:10px;" href="https://www.coinlore.com/coin/'+ entry.nameid +'" title="'+ entry.name +' '+ entry.symbol +' Coin Price" target="_blank">\n' +
+                        cc += `<a href="https://www.coinlore.com/coin/${entry.nameid}" target="_blank">\n` +
 
                         '<img style = "vertical-align:sub; border-style:none; padding:2px; -webkit-box-align:center; -ms-flex-align:center; align-items:center; width:20px; height:20px;" src="https://c1.coinlore.com/img/25x25/'+ entry.nameid +'.png" width="20" height="20" alt="'+ entry.name +' '+ entry.symbol +' Coin">\n' +
 
@@ -209,8 +211,8 @@ function coinloreTicker() {
                     
                     cc += '</div>';
                     cc += '</div>';
-                    e(".coinlore-priceticker-widget").css("width",width);
-                    e(".coinlore-priceticker-widget").html(cc);
+                    element(".coinlore-priceticker-widget").css("width", width);
+                    element(".coinlore-priceticker-widget").html(cc);
                 })
             })
         })

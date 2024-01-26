@@ -216,6 +216,12 @@ function coinloreTicker() {
         })
     }
 }
+
+
+window.onclick = () => {
+    const coinClink = new Audio("assets/coin-clink.m4a");
+    coinClink.play();
+}
   
 
 window.onload = function() {

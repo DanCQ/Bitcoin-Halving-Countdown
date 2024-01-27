@@ -165,7 +165,7 @@ function coinloreTicker() {
     }
 
 
-    //price ticker customization
+    //price ticker customization using jQuery.
     function tickerStyle() {
         jqElement(document).ready( (element) => {
 
@@ -173,8 +173,7 @@ function coinloreTicker() {
             let ccolor = "black"; //coin name
             let pcolor = 'goldenrod'; //coin price
             let scolor = "steelblue"; //coin abbreviation
-            let symbol = '';
-            let width;
+            let symbol;
             
 
             element(".coinlore-priceticker-widget").each(function() { 
@@ -183,35 +182,38 @@ function coinloreTicker() {
                 element(this).attr("data-top") + "&cur=" + 
                 element(this).attr("data-mcurrency"), 
 
-                function(t) { 
+                function(ticker) { 
                 
-                    let cc = '<div class = "marqueecoinlore" >'; //found in css style sheet
+                    let cc = `<div class="marqueecoinlore">`; //opening div, class found in css
                     
-                    t.forEach(function(entry) { 
+                    ticker.forEach(function(entry) { 
                         symbol = '';
                         
                         if(entry.percent_change_24h < 0) {
-                            color = '#830000!important'; //red
+                            color = '#830000!important'; //red loss
                         } else {
-                            color = '#007700!important'; //green
+                            color = '#007700!important'; //green gain
                             symbol = '+';
                         }
                         
-                        cc += `<a href="https://www.coinlore.com/coin/${entry.nameid}" target="_blank">\n` +
+                        //coin hypertext link
+                        cc += `<a href="https://www.coinlore.com/coin/${entry.nameid}" target="_blank">` +
 
-                        '<img style = "vertical-align:sub; border-style:none; padding:2px; -webkit-box-align:center; -ms-flex-align:center; align-items:center; width:20px; height:20px;" src="https://c1.coinlore.com/img/25x25/'+ entry.nameid +'.png" width="20" height="20" alt="'+ entry.name +' '+ entry.symbol +' Coin">\n' +
+                        `<img src="https://c1.coinlore.com/img/25x25/${entry.nameid}.png">` +  //coin icon image
 
-                        '<span style = "color: '+ ccolor +'">'+ entry.name +'</span>' + 
-                        '<span style = "color: '+ scolor +'"> ('+ entry.symbol +')</span>\n' +
+                        `<span style = "color: ${ccolor}"> ${entry.name} </span>` +  //coin name
+                        `<span style = "color: ${scolor}"> (${entry.symbol}) </span>` +  //coin abbreviation
 
-                        '<span style = "color: '+ pcolor +';">'+ entry.price_usd +
-                        '<span style = "font-size:10px" >'+ entry.mc +'</span></span>' + 
-                        '<span style = "color: '+ color +'"> ('+ symbol +''+ entry.percent_change_24h +'%) </span>\n' + '</a>';
+                        `<span style = "color: ${pcolor}"> ${entry.price_usd}` +  //coin price
+                        `<span style = "font-size:10px">${entry.mc} </span></span>` +  //usd
+
+                        `<span style = "color: ${color}">  (${symbol}${entry.percent_change_24h}%) </span> </a>`;
+                        //percentage gain or loss
                     });
                     
-                    cc += '</div>';
-                    cc += '</div>';
-                    element(".coinlore-priceticker-widget").css("width", width);
+                    cc += '</div>'; //closing div
+
+                    //set HTML content of selected element to value stored in cc variable
                     element(".coinlore-priceticker-widget").html(cc);
                 })
             })

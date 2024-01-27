@@ -2,6 +2,7 @@ const halving = document.getElementById("halving-block");
 const height = document.getElementById("current-block-height");
 const remaining = document.getElementById("remaining-blocks");
 const timeEstimate = document.getElementById("time-estimate");
+const halvingDate = document.getElementById("halving-date");
 
 //multiple APIs for redundancy
 const apiArray = [
@@ -71,6 +72,54 @@ function calculateCountdown(totalMinutes) {
     let hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
     let minutes = Math.floor(totalMinutes % oneHourInMinutes);
 
+    //future calendar day of the halving
+    //planning to calculate for leap years soon
+    function halvingCalendarDate() {
+
+        const monthArray = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+        ];
+
+        const weekdayArray = [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thrusday",
+            "Friday",
+            "Saturday",
+        ];
+
+        let currentDate = new Date(); // Get the current date and time
+
+        let futureDate = new Date(
+            currentDate.getTime() + //current time in milliseconds
+            (years * 365 * 24 * 60 * 60 * 1000) + //years in milliseconds
+            (days * 24 * 60 * 60 * 1000) + //days in milliseconds
+            (hours * 60 * 60 * 1000) + //hours in milliseconds
+            (minutes * 60 * 1000) //minutes in milliseconds
+        );
+
+        let day = futureDate.getDate(); //future day
+        let month = monthArray[futureDate.getMonth()]; //future month
+        let weekday = weekdayArray[futureDate.getDay()]; //future weekday
+        let year = futureDate.getFullYear(); //future year
+
+        halvingDate.textContent = `${weekday}, ${month} ${day}, ${year}`;
+
+    } halvingCalendarDate();
+
 
     function updateCountdown() {
 
@@ -92,9 +141,9 @@ function calculateCountdown(totalMinutes) {
         }
         
         timeEstimate.textContent = setCountdown();
-    }
-  
-    updateCountdown();
+    
+    } updateCountdown();
+
 }
 
 

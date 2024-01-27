@@ -75,6 +75,10 @@ li {
     margin: 3px 0px 3px -8px;
 }
 
+li span {
+    line-height: 17.5px;
+}
+
 main {
     color: #3C4043;
     display: flex;

@@ -41,7 +41,7 @@ async function getCurrentBlockHeight() {
                     return data.data.blocks; //the current block number
                 }
 
-            } else if (api.url == 'https://blockchain.info/q/getblockcount' || 'https://blockstream.info/api/blocks/tip/height') {
+            } else if (api.url == 'https://blockchain.info/q/getblockcount' || api.url == 'https://blockstream.info/api/blocks/tip/height') {
 
                 if(isNumber(data)) {
                     return data; //the current block number
@@ -96,16 +96,18 @@ function calculateCountdown(totalMinutes) {
             "Monday",
             "Tuesday",
             "Wednesday",
-            "Thrusday",
+            "Thursday",
             "Friday",
             "Saturday",
         ];
 
         let currentDate = new Date(); // Get the current date and time
 
+        let totalDays = calculateTotalDays(years);
+
         let futureDate = new Date(
             currentDate.getTime() + //current time in milliseconds
-            (years * 365 * 24 * 60 * 60 * 1000) + //years in milliseconds
+            (totalDays * 24 * 60 * 60 * 1000) + //total days in milliseconds
             (days * 24 * 60 * 60 * 1000) + //days in milliseconds
             (hours * 60 * 60 * 1000) + //hours in milliseconds
             (minutes * 60 * 1000) //minutes in milliseconds
@@ -119,6 +121,25 @@ function calculateCountdown(totalMinutes) {
         halvingDate.textContent = `${weekday}, ${month} ${day}, ${year}`;
 
     } halvingCalendarDate();
+
+
+    //true if leap year, false if not
+    function isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    }
+    
+
+    //year becomes 366 days, if currently in a leap year
+    function calculateTotalDays(numOfYears) {
+        let totalDays = numOfYears * 365;
+        
+        for (let year = new Date().getFullYear(); year <= new Date().getFullYear() + numOfYears; year++) {
+            if (isLeapYear(year)) {
+                totalDays++;
+            }
+        }
+        return totalDays;
+    }
 
 
     function updateCountdown() {
@@ -277,7 +298,7 @@ window.onclick = () => {
 }
   
 
-window.onload = function() {
+window.addEventListener("load", function() {
     
     setDisplay(); //runs once without delay
 
@@ -285,5 +306,5 @@ window.onload = function() {
 
     setInterval( () => { setDisplay(); }, 1000 * 60); //refresh info every minute
 
-};
+});
 

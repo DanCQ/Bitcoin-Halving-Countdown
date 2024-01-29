@@ -4,6 +4,7 @@ const remaining = document.getElementById("remaining-blocks");
 const timeEstimate = document.getElementById("time-estimate");
 const halvingDate = document.getElementById("halving-date");
 
+
 //multiple APIs for redundancy
 const apiArray = [
     {
@@ -292,10 +293,10 @@ function coinloreTicker() {
 }
 
 
-window.onclick = () => {
+window.addEventListener("click", function() {
     const coinClink = new Audio("assets/coin-clink.m4a");
     coinClink.play();
-}
+});
   
 
 window.addEventListener("load", function() {

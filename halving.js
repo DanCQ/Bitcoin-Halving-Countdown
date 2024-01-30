@@ -146,19 +146,49 @@ function calculateCountdown(totalMinutes) {
     function updateCountdown() {
 
         function setCountdown() {
+            
+            //resets on interval
+            let count = "";
+            let m, h, d = false; //used to add commas
 
-            let count = `${minutes} minutes`;
+            //corrects grammar
+            function plural(num, noun) {
+
+                if(num > 1) {
+                    return `${num} ${noun}s`;
+                } else {
+                    return `${num} ${noun}`;
+                }
+            }
     
             //values added only if above zero
+            if(minutes > 0) {
+                count = plural(minutes, 'minute');
+                m = true;
+            } 
             if (hours > 0) {
-                count = `${hours} hours, ${count}`;
-            }
+                if(m) {
+                    count = `${plural(hours, 'hour')}, ${count}`;
+                } else {
+                    count = plural(hours, 'hour');
+                }
+                h = true;
+            } 
             if (days > 0) {
-                count = `${days} days, ${count}`;
-            }
+                if(m || h) {
+                    count = `${plural(days, 'day')}, ${count}`;
+                } else {
+                    count = plural(days, 'day');
+                }
+                d = true;
+            } 
             if (years > 0) {
-                count = `${years} years, ${count}`;
-            }
+                if(m || h || d) {
+                    count = `${plural(years, 'year')}, ${count}`;
+                } else {
+                    count = plural(years, 'year');
+                }
+            } 
             return count;
         }
         

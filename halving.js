@@ -149,7 +149,7 @@ function calculateCountdown(totalMinutes) {
             
             //resets on interval
             let count = "";
-            let m, h, d = false; //used to add commas
+            let m, h = false; //used to add commas
 
             //corrects grammar
             function plural(num, noun) {
@@ -175,18 +175,18 @@ function calculateCountdown(totalMinutes) {
                 h = true;
             } 
             if (days > 0) {
-                if(m || h) {
-                    count = `${plural(days, 'day')}, ${count}`;
+                if (years > 0) { //because days matter more than years ;)
+                    if(m || h) {
+                        count = `${plural(days + calculateTotalDays(years), 'day')}, ${count}`;
+                    } else {
+                        count = plural(days + calculateTotalDays(years), 'day');
+                    }
                 } else {
-                    count = plural(days, 'day');
-                }
-                d = true;
-            } 
-            if (years > 0) {
-                if(m || h || d) {
-                    count = `${plural(years, 'year')}, ${count}`;
-                } else {
-                    count = plural(years, 'year');
+                    if(m || h) {
+                        count = `${plural(days, 'day')}, ${count}`;
+                    } else {
+                        count = plural(days, 'day');
+                    }
                 }
             } 
             return count;

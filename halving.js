@@ -420,8 +420,8 @@ async function getTransactions() {
             const minAmountUSD = (minTransaction.out[0].value * exchangeRate).toFixed(2);
 
 
-            document.getElementById('maxTransaction').textContent = `${maxTransaction.out[0].value} BTC / ${formatNumberWithCommas(formatAmount(maxAmountUSD))} USD`;
-            document.getElementById('minTransaction').textContent = `${minTransaction.out[0].value} BTC / ${formatNumberWithCommas(formatAmount(minAmountUSD))} USD`;
+            document.getElementById('maxTransaction').textContent = `${maxTransaction.out[0].value} BTC | ${formatNumberWithCommas(formatAmount(maxAmountUSD))} USD`;
+            document.getElementById('minTransaction').textContent = `${minTransaction.out[0].value} BTC | ${formatNumberWithCommas(formatAmount(minAmountUSD))} USD`;
         } catch (error) {
             console.error(error);
         }

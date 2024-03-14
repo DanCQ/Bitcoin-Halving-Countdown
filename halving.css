@@ -118,6 +118,7 @@ ul {
     opacity: 0.08;
     position: absolute;
         left: 0;
+        bottom: 0;
     width: 100%;
 }
 

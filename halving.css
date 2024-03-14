@@ -90,8 +90,7 @@ main {
     flex-wrap: wrap;
     font-family: chalkboard, monospace;
     justify-content: space-evenly;
-    max-height: 100vh;
-    min-height: 95vh;
+    min-height: 100vh;
     padding: 5px;
 }
 

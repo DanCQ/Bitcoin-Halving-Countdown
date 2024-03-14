@@ -149,6 +149,7 @@ ul {
 .frame {
     background: linear-gradient(180deg, linen 99.2%, orange 99.3%, #ff4C1D);
     border-radius: 8px;
+    min-height: 100vh;
     padding: 10px 20px 11px 20px;
 }
 

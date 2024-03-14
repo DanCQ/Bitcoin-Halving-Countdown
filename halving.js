@@ -210,6 +210,23 @@ function estimateTimeRemaining(remainingBlocks, averageBlockTime = 10) {
 }
 
 
+function formatNumberWithCommas(number) {
+    // Convert the number to a string
+    const numString = number.toString();
+
+    // Split the string into integer and decimal parts
+    const [integerPart, decimalPart] = numString.split('.');
+
+    // Format the integer part with commas
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+$)/g, ',');
+
+    // Combine the formatted integer part with the decimal part (if exists)
+    const formattedNumber = decimalPart ? `${formattedInteger}.${decimalPart}` : formattedInteger;
+
+    return formattedNumber;
+}
+
+
 //should never fail, if getCurrentBlockHeight succeeded
 async function setDisplay() {
     try {
@@ -219,9 +236,9 @@ async function setDisplay() {
         let halvingBlock = currentBlockHeight + remainingBlocks;
         let remainingTime = estimateTimeRemaining(remainingBlocks);
 
-        halving.textContent = halvingBlock;
-        height.textContent = currentBlockHeight;
-        remaining.textContent = remainingBlocks;
+        halving.textContent = formatNumberWithCommas(halvingBlock);
+        height.textContent = formatNumberWithCommas(currentBlockHeight);
+        remaining.textContent = formatNumberWithCommas(remainingBlocks);
 
         //here since remainingTime is local scope value + main() will be an interval
         calculateCountdown(remainingTime);

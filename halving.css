@@ -127,10 +127,6 @@ ul {
     line-height: 38px;
 }
 
-.blocks {
-    min-width: 35%;
-}
-
 .coinlore-priceticker-widget {
     animation: marquee 45s linear infinite;
     background-color: linen;
@@ -151,14 +147,14 @@ ul {
     animation-play-state: paused; 
 }
 
-.count-down {
-    min-width: 45%;
-}
-
 .frame {
     background: linear-gradient(180deg, linen 99.2%, orange 99.3%, #ff4C1D);
     border-radius: 8px;
     padding: 10px 20px 11px 20px;
+}
+
+.half {
+    min-width: 45%;
 }
 
 .label { 

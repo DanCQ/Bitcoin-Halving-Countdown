@@ -127,6 +127,10 @@ ul {
     line-height: 38px;
 }
 
+.blocks {
+    min-width: 35%;
+}
+
 .coinlore-priceticker-widget {
     animation: marquee 45s linear infinite;
     background-color: linen;

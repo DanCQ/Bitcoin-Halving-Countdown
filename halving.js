@@ -242,6 +242,8 @@ async function setDisplay() {
 
         //here since remainingTime is local scope value + main() will be an interval
         calculateCountdown(remainingTime);
+        
+        getTransactions(); // smallest and biggest transactions
 
     } catch (error) {
         console.error(`Error occurred in setDisplay(), ${error.message}`);
@@ -340,6 +342,93 @@ function coinloreTicker() {
 }
 
 
+//gets current BTC exchange rate in USD with the coindesk API
+async function getExchangeRate() {
+    try {
+        const response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json');
+        const data = await response.json();
+        const exchangeRateUSD = data.bpi.USD.rate_float;
+
+        return exchangeRateUSD;
+       
+    } catch (error) {  //if it failed to get it
+        console.error(error);
+        return null;
+    }
+}
+
+function formatAmount(amount) {
+    
+        const formattedAmount = amount.toLocaleString();
+        
+        // Determine the value scale (million, billion, trillion, etc.)
+        if (amount >= 1e33) {
+            return `${formattedAmount} Decillion`;
+        } else if (amount >= 1e30) {
+            return `${formattedAmount} Nonillion`;
+        } else if (amount >= 1e27) {
+            return `${formattedAmount} Octillion`;
+        } else if (amount >= 1e24) {
+            return `${formattedAmount} Septillion`;
+        } else if (amount >= 1e21) {
+            return `${formattedAmount} Sextillion`;
+        } else if (amount >= 1e18) {
+            return `${formattedAmount} Quintillion`;
+        } else if (amount >= 1e15) {
+            return `${formattedAmount} Quadrillion`;
+        } else if (amount >= 1e12) {
+            return `${formattedAmount} Trillion`;
+        } else if (amount >= 1e9) {
+            return `${formattedAmount} Billion`;
+        } else if (amount >= 1e6) {
+            return `${formattedAmount} Million`;
+        } else if (amount >= 1e3) {
+            return `${formattedAmount} Thousand`;
+        } else if (amount >= 100) {
+            return `${formattedAmount} Hundred`;
+        } else {
+            return `${formattedAmount}`;
+        }
+}
+     
+
+async function getTransactions() {
+    const exchangeRate = await getExchangeRate();
+
+    if (exchangeRate !== null) {
+        try {
+            const response = await fetch('https://blockchain.info/unconfirmed-transactions?format=json');
+            const data = await response.json();
+            const transactions = data.txs;
+
+            let maxTransaction = transactions[0];
+            let minTransaction = transactions[0];
+
+            for (let i = 1; i < transactions.length; i++) {
+                const transaction = transactions[i];
+
+                if (transaction.out[0].value > maxTransaction.out[0].value) {
+                    maxTransaction = transaction;
+                }
+
+                if (transaction.out[0].value < minTransaction.out[0].value) {
+                    minTransaction = transaction;
+                }
+            }
+
+            const maxAmountUSD = (maxTransaction.out[0].value * exchangeRate).toFixed(2);
+            const minAmountUSD = (minTransaction.out[0].value * exchangeRate).toFixed(2);
+
+
+            document.getElementById('maxTransaction').textContent = `${maxTransaction.out[0].value} BTC / ${formatNumberWithCommas(formatAmount(maxAmountUSD))} USD`;
+            document.getElementById('minTransaction').textContent = `${minTransaction.out[0].value} BTC / ${formatNumberWithCommas(formatAmount(minAmountUSD))} USD`;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+}
+
+
 window.addEventListener("click", function() {
     const coinClink = new Audio("assets/coin-clink.m4a");
     coinClink.play();
@@ -351,6 +440,8 @@ window.addEventListener("load", function() {
     setDisplay(); //runs once without delay
 
     coinloreTicker(); //price ticker
+
+    getTransactions(); // smallest and biggest transactions
 
     setInterval( () => { setDisplay(); }, 1000 * 60); //refresh info every minute
 

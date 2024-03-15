@@ -357,6 +357,7 @@ async function getExchangeRate() {
     }
 }
 
+
 function formatAmount(amount) {
     
         const formattedAmount = amount.toLocaleString();

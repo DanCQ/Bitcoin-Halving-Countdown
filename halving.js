@@ -417,6 +417,11 @@ async function getTransactions() {
                     minTransaction = transaction;
                 }
             }
+            
+            //Bitcoin data is shown in satoshis. 100,000,000 == 1 Bitcoin 
+            // Convert satoshis to bitcoins by dividing by 100,000,000
+            const maxAmountBTC = maxTransaction.out[0].value / 100000000;
+            const minAmountBTC = minTransaction.out[0].value / 100000000;
 
             //multiplies value of each transaction with the previously retrieved exchange rate.
             //toFixed(2) method ensures that the amounts are rounded to two decimal places.

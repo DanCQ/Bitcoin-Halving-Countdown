@@ -398,8 +398,8 @@ async function getTransactions() {
     if (exchangeRate !== null) {
         try {
             const response = await fetch('https://blockchain.info/unconfirmed-transactions?format=json');
-            const data = await response.json();
-            const transactions = data.txs;
+            const data = await response.json(); // fetched unconfirmed Bitcoin transactions.
+            const transactions = data.txs; //contains an array of transactions.
 
             let maxTransaction = transactions[0];
             let minTransaction = transactions[0];
@@ -407,21 +407,25 @@ async function getTransactions() {
             for (let i = 1; i < transactions.length; i++) {
                 const transaction = transactions[i];
 
+                //If higher value than the current, it becomes the new maxTransaction.
                 if (transaction.out[0].value > maxTransaction.out[0].value) {
                     maxTransaction = transaction;
                 }
 
+                //if a lower value than the current, it becomes the new minTransaction.
                 if (transaction.out[0].value < minTransaction.out[0].value) {
                     minTransaction = transaction;
                 }
             }
 
+            //multiplies value of each transaction with the previously retrieved exchange rate.
+            //toFixed(2) method ensures that the amounts are rounded to two decimal places.
             const maxAmountUSD = (maxTransaction.out[0].value * exchangeRate).toFixed(2);
             const minAmountUSD = (minTransaction.out[0].value * exchangeRate).toFixed(2);
 
 
-            document.getElementById('maxTransaction').textContent = `${maxTransaction.out[0].value} BTC | ${formatNumberWithCommas(formatAmount(maxAmountUSD))} USD`;
-            document.getElementById('minTransaction').textContent = `${minTransaction.out[0].value} BTC | ${formatNumberWithCommas(formatAmount(minAmountUSD))} USD`;
+            document.getElementById('maxTransaction').textContent = `${formatNumberWithCommas(formatAmount(maxTransaction.out[0].value))} BTC | ${formatNumberWithCommas(formatAmount(maxAmountUSD))} USD`;
+            document.getElementById('minTransaction').textContent = `${formatNumberWithCommas(formatAmount(minTransaction.out[0].value))} BTC | ${formatNumberWithCommas(formatAmount(minAmountUSD))} USD`;
         } catch (error) {
             console.error(error);
         }
@@ -446,4 +450,3 @@ window.addEventListener("load", function() {
     setInterval( () => { setDisplay(); }, 1000 * 60); //refresh info every minute
 
 });
-

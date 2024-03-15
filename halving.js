@@ -413,7 +413,7 @@ async function getTransactions() {
                 }
 
                 //if a lower value than the current, it becomes the new minTransaction.
-                if (transaction.out[0].value < minTransaction.out[0].value) {
+                if (transaction.out[0].value !== 0.00000000 && transaction.out[0].value < minTransaction.out[0].value) {
                     minTransaction = transaction;
                 }
             }

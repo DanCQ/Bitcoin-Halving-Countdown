@@ -428,9 +428,11 @@ async function getTransactions() {
             const maxAmountUSD = (maxTransaction.out[0].value * exchangeRate).toFixed(2);
             const minAmountUSD = (minTransaction.out[0].value * exchangeRate).toFixed(2);
 
+            document.getElementById('maxTransaction').textContent = `${formatNumberWithCommas(maxAmountBTC.toFixed(8))} BTC | ${formatNumberWithCommas(maxAmountUSD)} USD`;
+            document.getElementById('minTransaction').textContent = `${formatNumberWithCommas(minAmountBTC.toFixed(8))} BTC | ${formatNumberWithCommas(minAmountUSD)} USD`;
 
-            document.getElementById('maxTransaction').textContent = `${formatNumberWithCommas(formatAmount(maxTransaction.out[0].value))} BTC | ${formatNumberWithCommas(formatAmount(maxAmountUSD))} USD`;
-            document.getElementById('minTransaction').textContent = `${formatNumberWithCommas(formatAmount(minTransaction.out[0].value))} BTC | ${formatNumberWithCommas(formatAmount(minAmountUSD))} USD`;
+            //document.getElementById('maxTransaction').textContent = `${formatNumberWithCommas(formatAmount(maxTransaction.out[0].value))} BTC | ${formatNumberWithCommas(formatAmount(maxAmountUSD))} USD`;
+            //document.getElementById('minTransaction').textContent = `${formatNumberWithCommas(formatAmount(minTransaction.out[0].value))} BTC | ${formatNumberWithCommas(formatAmount(minAmountUSD))} USD`;
         } catch (error) {
             console.error(error);
         }

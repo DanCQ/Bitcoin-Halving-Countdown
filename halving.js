@@ -70,7 +70,7 @@ function calculateCountdown(totalMinutes) {
     const oneDayInMinutes = 24 * 60;
     const oneHourInMinutes = 60;
   
-    let years = Math.floor(totalMinutes / oneYearInMinutes);
+    let years = Math.floor(totalMinutes / oneYearInMinutes); 
     let days = Math.floor((totalMinutes % oneYearInMinutes) / oneDayInMinutes);
     let hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
     let minutes = Math.floor(totalMinutes % oneHourInMinutes);
@@ -158,7 +158,12 @@ function calculateCountdown(totalMinutes) {
             function plural(num, noun) {
 
                 if(num > 1) {
-                    return `${num} ${noun}s`;
+                    if(years > 0) { //corrects grammar for days > 999
+                        return `${formatNumberWithCommas(num)} ${noun}s`;
+                    } else {
+                        return `${num} ${noun}s`;
+                    }
+                    
                 } else {
                     return `${num} ${noun}`;
                 }

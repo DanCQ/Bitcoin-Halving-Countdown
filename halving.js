@@ -5,7 +5,7 @@ const timeEstimate = document.getElementById("time-estimate");
 const halvingDate = document.getElementById("halving-date");
 
 
-//multiple APIs for redundancy
+//multiple block height APIs for redundancy
 const apiArray = [
     {
         name: "Blockchair",
@@ -21,7 +21,7 @@ const apiArray = [
     }
 ];
 
-//!important
+
 //async function can handle tasks that take some time to complete
 async function getCurrentBlockHeight() {
 
@@ -73,8 +73,10 @@ function calculateCountdown(totalMinutes) {
     let hours = Math.floor((totalMinutes % oneDayInMinutes) / oneHourInMinutes);
     let minutes = Math.floor(totalMinutes % oneHourInMinutes);
 
+    halvingCalendarDate(); //future calendar day of the halving
+    updateCountdown(); //grammar for estimated time of halving
+
     //future calendar day of the halving
-    //planning to calculate for leap years soon
     function halvingCalendarDate() {
 
         const monthArray = [
@@ -120,19 +122,17 @@ function calculateCountdown(totalMinutes) {
         let year = futureDate.getFullYear(); //future year
 
         halvingDate.textContent = `${weekday}, ${month} ${day}, ${year}`;
+    } 
 
-    } halvingCalendarDate();
-
-
-    //true if leap year, false if not
-    function isLeapYear(year) {
-        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-    }
-    
 
     //year becomes 366 days, if currently in a leap year
     function calculateTotalDays(numOfYears) {
         let totalDays = numOfYears * 365;
+
+        //true if leap year, false if not
+        function isLeapYear(year) {
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        } 
         
         for (let year = new Date().getFullYear(); year <= new Date().getFullYear() + numOfYears; year++) {
             if (isLeapYear(year)) {
@@ -143,6 +143,7 @@ function calculateCountdown(totalMinutes) {
     }
 
 
+    //grammar for estimated time of halving
     function updateCountdown() {
 
         function setCountdown() {
@@ -193,9 +194,7 @@ function calculateCountdown(totalMinutes) {
         }
         
         timeEstimate.textContent = setCountdown();
-    
-    } updateCountdown();
-
+    } 
 }
 
 
@@ -219,8 +218,14 @@ function formatNumberWithCommas(number) {
 
     // Format the integer part with commas
     const formattedInteger = integerPart.replace(/\B(?=(\d{3})+$)/g, ',');
+    /*  
+    \B: This is a zero-width assertion, asserting that the position is not a word boundary.
+    (?=(\d{3})+$) A positive lookahead assertion, ensures the position is followed by a multiple of three digits (denoted by \d{3}) until the end of the string ($). 
+    This effectively looks ahead in the string to find positions before groups of three digits without consuming them.
+    /g: This flag indicates that the regular expression should be applied globally, it will replace all occurrences of the pattern in the string, not just the first one.
+    */
 
-    // Combine the formatted integer part with the decimal part (if exists)
+    // If decimalPart exists(true), combine the formatted integer part with the decimal part; else, only assign integer.
     const formattedNumber = decimalPart ? `${formattedInteger}.${decimalPart}` : formattedInteger;
 
     return formattedNumber;
@@ -251,8 +256,7 @@ async function setDisplay() {
 }
 
 
-//Coinlore Priceticker Widget --HTML inside JavaScript--
-//I'm still attempting to understand & customize it
+//Coinlore Priceticker Widget --adds HTML from inside JavaScript--
 function coinloreTicker() {
 
     let jqElement;
@@ -270,18 +274,18 @@ function coinloreTicker() {
             //set onreadystatechange event to call okeyDokey() when script loads
             "complete" != this.readyState && "loaded" != this.readyState || okeyDokey() 
 
-        //readyState don't exist, set up onload event call okeyDokey() when script loads, append script to document
+         //readyState don't exist, set up onload event call okeyDokey() when script loads, append script to document
         } : jLibr.onload = okeyDokey, (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(jLibr)
 
-    //jQuery already defined and version "1.4.2", calls tickerStyle()
+     //jQuery already defined and version "1.4.2", calls tickerStyle()
     } else jqElement = window.jQuery, tickerStyle();
     
     
     function okeyDokey() { //allows multiple versions of jQuery without interference
 
         jqElement = window.jQuery.noConflict(!0), tickerStyle();
-    //noConflict releases control of the $ to other libraries??
-    //(!0) true, also returns control of the jQuery var to previous owner??
+        //noConflict releases control of the $ to other libraries??
+        //(!0) true, also returns control of the jQuery var to previous owner??
     }
 
 
@@ -346,50 +350,50 @@ function coinloreTicker() {
 async function getExchangeRate() {
     try {
         const response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json');
-        const data = await response.json();
+        const data = await response.json(); //.json() improves data reability
         const exchangeRateUSD = data.bpi.USD.rate_float;
 
         return exchangeRateUSD;
        
     } catch (error) {  //if it failed to get it
-        console.error(error);
+        console.error(`Could not retrieve echange rate, ${error.message}`);
         return null;
     }
 }
 
 
+// Determine the value scale (million, billion, trillion, etc.)
 function formatAmount(amount) {
     
-        const formattedAmount = amount.toLocaleString();
-        
-        // Determine the value scale (million, billion, trillion, etc.)
-        if (amount >= 1e33) {
-            return `${formattedAmount} Decillion`;
-        } else if (amount >= 1e30) {
-            return `${formattedAmount} Nonillion`;
-        } else if (amount >= 1e27) {
-            return `${formattedAmount} Octillion`;
-        } else if (amount >= 1e24) {
-            return `${formattedAmount} Septillion`;
-        } else if (amount >= 1e21) {
-            return `${formattedAmount} Sextillion`;
-        } else if (amount >= 1e18) {
-            return `${formattedAmount} Quintillion`;
-        } else if (amount >= 1e15) {
-            return `${formattedAmount} Quadrillion`;
-        } else if (amount >= 1e12) {
-            return `${formattedAmount} Trillion`;
-        } else if (amount >= 1e9) {
-            return `${formattedAmount} Billion`;
-        } else if (amount >= 1e6) {
-            return `${formattedAmount} Million`;
-        } else if (amount >= 1e3) {
-            return `${formattedAmount} Thousand`;
-        } else if (amount >= 100) {
-            return `${formattedAmount} Hundred`;
-        } else {
-            return `${formattedAmount}`;
-        }
+    const formattedAmount = amount.toLocaleString();
+    
+    if (amount >= 1e33) {
+        return `${formattedAmount} Decillion`;
+    } else if (amount >= 1e30) {
+        return `${formattedAmount} Nonillion`;
+    } else if (amount >= 1e27) {
+        return `${formattedAmount} Octillion`;
+    } else if (amount >= 1e24) {
+        return `${formattedAmount} Septillion`;
+    } else if (amount >= 1e21) {
+        return `${formattedAmount} Sextillion`;
+    } else if (amount >= 1e18) {
+        return `${formattedAmount} Quintillion`;
+    } else if (amount >= 1e15) {
+        return `${formattedAmount} Quadrillion`;
+    } else if (amount >= 1e12) {
+        return `${formattedAmount} Trillion`;
+    } else if (amount >= 1e9) {
+        return `${formattedAmount} Billion`;
+    } else if (amount >= 1e6) {
+        return `${formattedAmount} Million`;
+    } else if (amount >= 1e3) {
+        return `${formattedAmount} Thousand`;
+    } else if (amount >= 100) {
+        return `${formattedAmount} Hundred`;
+    } else {
+        return `${formattedAmount}`;
+    }
 }
      
 
@@ -419,13 +423,13 @@ async function getTransactions() {
                 }
             }
             
-            //Bitcoin data is shown in satoshis. 100,000,000 == 1 Bitcoin 
+            // Bitcoin data is shown in satoshis: 100,000,000 Satoshis == 1 Bitcoin 
             // Convert satoshis to bitcoins by dividing by 100,000,000
             const maxAmountBTC = maxTransaction.out[0].value / 100000000;
             const minAmountBTC = minTransaction.out[0].value / 100000000;
 
-            //multiplies value of each transaction with the previously retrieved exchange rate.
-            //toFixed(2) method ensures that the amounts are rounded to two decimal places.
+            // multiplies value of each transaction with the previously retrieved exchange rate.
+            // toFixed(2) method ensures that the amounts are rounded to two decimal places.
             const maxAmountUSD = (maxAmountBTC * exchangeRate).toFixed(2);
             const minAmountUSD = (minAmountBTC * exchangeRate).toFixed(2);
 
@@ -433,7 +437,7 @@ async function getTransactions() {
             document.getElementById('minTransaction').textContent = `${formatNumberWithCommas(formatAmount(minAmountBTC.toFixed(8)))} BTC | ${formatNumberWithCommas(formatAmount(minAmountUSD))} USD`;
         
         } catch (error) {
-            console.error(error);
+            console.error(`Could not retrieve transactions, ${error.message}`);
         }
     }
 }

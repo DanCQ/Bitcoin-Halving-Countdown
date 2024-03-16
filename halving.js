@@ -1,8 +1,10 @@
+const footer = document.querySelector('footer');
+const fixedItem = document.querySelector('.background-img');
 const halving = document.getElementById("halving-block");
+const halvingDate = document.getElementById("halving-date");
 const height = document.getElementById("current-block-height");
 const remaining = document.getElementById("remaining-blocks");
 const timeEstimate = document.getElementById("time-estimate");
-const halvingDate = document.getElementById("halving-date");
 
 
 //multiple block height APIs for redundancy
@@ -446,6 +448,20 @@ async function getTransactions() {
 window.addEventListener("click", function() {
     const coinClink = new Audio("assets/coin-clink.m4a");
     coinClink.play();
+});
+
+
+//allows footer to be clicked by moving image out of the way
+window.addEventListener('scroll', function() {
+
+    let footerPosition = footer.getBoundingClientRect().top;
+
+    // Calculate when the footer is about to appear
+    if (footerPosition < window.innerHeight) {
+      fixedItem.style.bottom = (window.innerHeight - footerPosition + 5) + 'px'; // 5px is padding
+    } else {
+      fixedItem.style.bottom = '0px'; // Reset to original position
+    }
 });
   
 

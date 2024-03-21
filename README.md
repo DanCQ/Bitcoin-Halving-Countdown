@@ -4,6 +4,6 @@
 
 My own personal tracking of The Bitcoin Halving event, and related information. <br>
 
-Using three Bitcoin APIs, and Coinlore ticker widget. <br>
+Using three Bitcoin APIs, Coinlore ticker widget, and counting leap years. <br>
 For redundancy, in case other sites crash, or disapear.
 
